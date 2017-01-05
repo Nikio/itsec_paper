@@ -1,0 +1,45 @@
+Gliederung Ausgewählte Themen der IT-Sicherheit
+
+Was ist das Ziel?
+- PLC Protokolle untersuchen auf Möglichkeiten zur Übertragung von Security Events
+
+Anforderung aus meiner eigenen E-Mail:
+Topic: "Eignung von bestehenden ICS-Netzwerk-Protokollen im Sicherheitskontext der Industrie 4.0 Entwicklung"
+Die Frage die ich mir stelle ist, welches sicherheitsrelevante Informationen sein könnten und wie geeignet die Spezifikationen der verschiedenen Protokolle (S7 Protokoll, Modbus, DNP3(?),...) für die Übermittlung dieser Informationen sind. 
+Dafür würde ich ein Survey-Paper schreiben, dass die Anforderungen darstellt, die verschiedenen Protokolle beschreibt (bis zu einem gewissen Detailgrad) und dann die Eigenschaften der Protokolle miteinander vergleichen.
+
+
+Fragen:
+- Welche Eigenschaften haben PLC Protokolle und wie funktioniert die Übertragung?
+- Was sind sicherheitsrelevante Events im SIEM Kontext?
+- Was könnten sicherheitsrelevante Events sein für die PLC?
+- Eignen sich aktuelle PLCs bzw. PLC Protokolle für den Sicherheitskontext Industrie 4.0?
+
+Gliederung
+- Einleitung
+    - Kontext Industrie 4.0 und Operationale Netzwerke
+    - Smart Factory
+    - Aufgabe der PLCs + Anbindung an das Ethernet
+    - Problemfrage: Sind diese „Legacy“-Devices überhaupt geeignet?
+    - Approach:
+        - Sicherheitsarchitekturen Industrie 4.0 —> Nähere Erklärung des Kontextes
+        - Beschreibung der PLC-Ethernetverbindung
+        - Beschreibung eines SIEM Systems und dem Kontext der sicherheitsrelevanten Events
+        - Vergleich von SIEM Events mit PLC-Möglichkeiten
+    - Paper structure
+        - Literature search - How did you search?
+        - Architecture
+        - Beschreibung Sicherheitsarchitektur Industrie 4.0
+        - PLC & Industrial Ethernet (Section 2)
+            - Use several different PLCs if needed (advanced topic)
+        - SIEM Systeme und sicherheitsrelevante Events (Section 3)
+        - Diskussion & Vergleich der Beschreibungen
+        - Conclusion
+- Literature search
+- Terminology
+- Sicherheitsarchitektur Industrie 4.0
+- PLC & Industrial Ethernet
+- SIEM Systeme und sicherheitsrelevante Events
+- Diskussion
+- Conclusion
+

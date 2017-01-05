@@ -1,0 +1,79 @@
+SPS-Termin 09.12.2016, 15:15 Uhr
+
+VW-Testdaten einer Siemens S7 SPS
+
+S7 nativ
+- ABfrage PasswortAufSPSgesetzt
+- SPSinSTARTsetzen
+- SPSinSTOPsetzen
+
+OPC_UA
+- OPC_UA_BROWSE
+
+Eine S7:
+- PG Schnittstelle (15 Pin, serielle Kommunikation) //Stand von vor 20 Jahren
+    - Für Kabel des Programmiergerätes
+    - PG redet direkt mit der CPU
+    - In der Praxis unspannend und umständlich
+- Verschiedene Ansätze das Problem (Fernwartung) zu lösen 
+    - RS232 (serielles Interface 9Pin), Verlängerung zwischen PG und SPS
+    - PGBox im Büro mit Stecker, Adapter auf RS232, das gleiche für die SPS
+    - RS232 angeschlossen an ein Modem (auf beiden Seiten), die Modems (Telefon, analog) konnten kommunizieren
+- Next Step: Viele SPS in einer Produktion per LAN ansprechen….
+    - SPS-Seite: 15 Pin Stecker auf Ethernet-Adapter -> von hier an TCP/IP
+    - Auf der anderen Seite: Auf PC treiber und Netlink Pro PG (virtuelles PG)
+    - Treiber für Protokoll (z.B. Profinet) seperat installieren
+        - Stellt Verbindung zu der genauen IP her (kleines Box (Ethernetadapter) zwischen PC und SPS)
+    - Diagnosepuffer S7
+        - Speicher an Events!
+    - Baugruppenzustand Tabs
+        - Allgemein
+        - Diagnosepuffer
+        - Speicher
+        - Zykluszeit
+        - Zeitsystem
+        - Leistungsdaten
+        - Kommunikation (//Wie schnell ist meine Schnittstelle, Mit wievielen kann ich kommunizieren, OP- und PG Kommunikation, S7-Basis Kommunikation
+        - Stacks
+    - Was kann ich alles tun
+        - Baugruppenzustand anzeigen
+        - Betriebszustand 
+        - CPU Melden (CPU Log, betrifft das SPS Programm intern)
+        - Hardware diagnostizieren
+    - Ideen / Diskussionpunkte
+        - Manipulierte SPS-Software
+            - Sicherung per Checksumme
+            - Zyklische Abfrage
+        - Manipulation der SPS durch andere SPS
+            - Zeiteinheit aus Beispiel (s.u.) wird durch andere SPS gestellt
+            - Das könnte ich per Anomalie-Erkennung auf dem Feldbus erkennen
+        - Manipulationsbeispiel
+            - SPS steuert manuellen Regler, der steuert motor
+            - Kritische Variable ist die ZEITeinheit
+    - Wie kommt man an Statusinformationen?
+        - Im Moment: Nur wenn ich aktiv als Wartender drauf schaue und gucke „Was ist denn passiert?“
+        - Anderer Ansatz: DEA greift zyklisch über den beschriebenen Kommunikationsweg Infos ab
+            - DEA greift Statusinformationen ab 
+            - Was kann ich lesen (Binär und analog) (und schreiben!)
+                - Eingänge
+                - Ausgänge
+                - Merker (fragt DEA ab)
+                - Datenblöcke (fragt DEA ab)
+            - Ein- und Ausgänge machen keinen Sinn (nicht persistent)
+                - Werte von E/A werden in Merker geschrieben (z.B. 1x pro Zyklus)
+            - Typischer Abstand: 10 Sekunden
+                - Wieviele Impulse verarbeitet?
+                - Was wurde geändert?
+    - Beispiel DB
+        - Pro 1:0 (Prozessablauf des Industriegerätes) Counter zeigt anzahl an durchläufen
+    - Freiheiten in SPSen
+        - z.B. ich kann Programme und Bausteine verändern ZUR LAUFZEIT!!!!!
+    - Software auslese Prozess
+        - Software setzt SPERRMERKER
+        - Lesemerker lesen
+        - Kopiermerker lesen
+        - 
+        - Sperrmerker zurücksetzen
+    - Auslesebefehle werden von der SCHNITTSTELLE ausgeführt
+    - 
+

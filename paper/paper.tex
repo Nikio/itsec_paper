@@ -1,0 +1,266 @@
+%"runningheads" enables:
+%  - page number on page 2 onwards
+%  - title/authors on even/odd pages
+%This is good for other readers to enable proper archiving among other papers and pointing to content.
+%Even if the title page states the title, when printed and stored in a folder, when blindly opening the folder, one could hit not the title page, but an arbitrary page. Therefore, it is good to have title printed on the pages, too.
+\documentclass[runningheads,a4paper]{llncs}
+
+%Even though `american`, `english` and `USenglish` are synonyms for babel package (according to https://tex.stackexchange.com/questions/12775/babel-english-american-usenglish), the llncs document class is prepared to avoid the overriding of certain names (such as "Abstract." -> "Abstract" or "Fig." -> "Figure") when using `english`, but not when using the other 2.
+\usepackage[english]{babel}
+
+%better font, similar to the default springer font
+%cfr-lm is preferred over lmodern. Reasoning at http://tex.stackexchange.com/a/247543/9075
+\usepackage[%
+rm={oldstyle=false,proportional=true},%
+sf={oldstyle=false,proportional=true},%
+tt={oldstyle=false,proportional=true,variable=true},%
+qt=false%
+]{cfr-lm}
+%
+%if more space is needed, exchange cfr-lm by mathptmx
+%\usepackage{mathptmx}
+
+\usepackage{graphicx}
+
+%extended enumerate, such as \begin{compactenum}
+\usepackage{paralist}
+
+%put figures inside a text
+%\usepackage{picins}
+%use
+%\piccaptioninside
+%\piccaption{...}
+%\parpic[r]{\includegraphics ...}
+%Text...
+
+%Sorts the citations in the brackets
+%It also allows \cite{refa, refb}. Otherwise, the document does not compile.
+%  Error message: "White space in argument"
+%\usepackage{cite}
+\usepackage[style=numeric,subentry,backend=biber,doi=true]{biblatex}
+\addbibresource{paper.bib}
+
+
+\usepackage[T1]{fontenc}
+
+%for demonstration purposes only
+\usepackage[math]{blindtext}
+
+%for easy quotations: \enquote{text}
+\usepackage{csquotes}
+
+%enable margin kerning
+\usepackage{microtype}
+
+%tweak \url{...}
+\usepackage{url}
+\urlstyle{same}
+%improve wrapping of URLs - hint by http://tex.stackexchange.com/a/10419/9075
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+%nicer // - solution by http://tex.stackexchange.com/a/98470/9075
+%DO NOT ACTIVATE -> prevents line breaks
+%\makeatletter
+%\def\Url@twoslashes{\mathchar`\/\@ifnextchar/{\kern-.2em}{}}
+%\g@addto@macro\UrlSpecials{\do\/{\Url@twoslashes}}
+%\makeatother
+
+%diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
+%slashbox is not available in texlive (due to licensing) and also gives bad results. This, we use diagbox
+%\usepackage{diagbox}
+
+%required for pdfcomment later
+\usepackage{xcolor}
+
+% new packages BEFORE hyperref
+% See also http://tex.stackexchange.com/questions/1863/which-packages-should-be-loaded-after-hyperref-instead-of-before
+
+%enable hyperref without colors and without bookmarks
+\usepackage[
+pdfauthor={Your Name},
+%pdfsubject={},
+pdftitle={Your paper title},
+pdfkeywords={Your, keywords},
+bookmarks=false,
+breaklinks=true,
+colorlinks=true,
+linkcolor=black,
+citecolor=black,
+urlcolor=black,
+%pdfstartpage=19,
+pdfpagelayout=SinglePage,
+pdfstartview=Fit
+]{hyperref}
+%enables correct jumping to figures when referencing
+\usepackage[all]{hypcap}
+
+%enable nice comments
+\usepackage{pdfcomment}
+\newcommand{\commentontext}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\newcommand{\commentatside}[1]{\pdfcomment[color={0.045 0.278 0.643},icon=Note]{#1}}
+
+%compatibality with TODO package
+\newcommand{\todo}[1]{\commentatside{#1}}
+
+%enable \cref{...} and \Cref{...} instead of \ref: Type of reference included in the link
+\usepackage[capitalise,nameinlink]{cleveref}
+%Nice formats for \cref
+\crefname{section}{Sect.}{Sect.}
+\Crefname{section}{Section}{Sections}
+
+\usepackage{xspace}
+%\newcommand{\eg}{e.\,g.\xspace}
+%\newcommand{\ie}{i.\,e.\xspace}
+\newcommand{\eg}{e.\,g.\ }
+\newcommand{\Eg}{E.\,g.\ }
+\newcommand{\ie}{i.\,e.\ }
+
+%introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
+\DeclareFontFamily{U}{MnSymbolC}{}
+\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
+\DeclareFontShape{U}{MnSymbolC}{m}{n}{
+    <-6>  MnSymbolC5
+   <6-7>  MnSymbolC6
+   <7-8>  MnSymbolC7
+   <8-9>  MnSymbolC8
+   <9-10> MnSymbolC9
+  <10-12> MnSymbolC10
+  <12->   MnSymbolC12%
+}{}
+\DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{booktabs}
+
+% do not indent new lines
+\setlength{\parindent}{0pt}
+
+% set image search path
+\graphicspath{{./img/}}
+% set graphics extensions
+\DeclareGraphicsExtensions{.pdf}
+
+\usepackage{listings}
+\usepackage[varqu]{zi4}
+\definecolor{eclipse-red}{RGB}{127,0,85}
+\definecolor{eclipse-blue}{RGB}{0,0,192} %for fields
+\definecolor{eclipse-strings}{RGB}{42,0,255}
+\definecolor{eclipse-green}{RGB}{63,127,95}
+\definecolor{eclipse-lightblue}{RGB}{127,159,191} %for Javadoc Tags
+\definecolor{eclipse-gray}{RGB}{100,100,100} %for annotations
+\definecolor{eclipse-JavadocHTML}{RGB}{127,127,159} %for Javadoc HTML
+\definecolor{eclipse-JavadocLinks}{RGB}{63,63,191}
+\definecolor{eclipse-Javadoc}{RGB}{63,95,191}
+\definecolor{eclipseBackground}{rgb}{.941,.941,.941}
+\lstdefinestyle{eclipse-java}{%
+	basicstyle=\ttfamily\small,%\fontfamily{zi4}\fontsize{10pt}{10pt}\selectfont,%
+	tabsize=4,%
+	breakautoindent=true,%
+	breaklines,%
+	postbreak=\space\space\space,%
+	breakindent=0pt,%
+	keywordstyle=\color{eclipse-red}\bfseries,%
+	stringstyle=\color{eclipse-strings},%
+	commentstyle=\color{eclipse-green},
+	showstringspaces=false,
+	morecomment=*[s][\color{eclipse-Javadoc}]{/**}{*/},
+	morecomment=*[l][commentstyle]{//},
+	language=Java,morekeywords={enum},
+	emph={field,field2},emphstyle={\color{eclipse-blue}},
+	emph=[2]{RED,GREEN,BLUE,staticField,inheritedField},emphstyle=[2]{\color{eclipse-blue}\itshape},
+	emph=[3]{staticMethod},emphstyle=[3]\itshape,
+	emph={[4]TASK},emphstyle={[4]\color{eclipse-lightblue}\bfseries},
+	alsoletter={@},
+	emph=[5]{@author,@deprecated},emphstyle=[5]{\color{eclipse-lightblue}\bfseries},
+	moredelim=[l][\color{eclipse-gray}]{@},
+	moredelim=*[s][\color{eclipse-Javadoc}]{/**}{*/},
+	moredelim=[s][\color{eclipse-JavadocLinks}]{@link}{*},
+	extendedchars=true,%
+	literate={Ö}{{\"O}}1 {Ä}{{\"A}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1 {ü}{{\"u}}1
+	{ä}{{\"a}}1 {ö}{{\"o}}1,
+	frame=single,
+	backgroundcolor=\color{eclipseBackground}}
+
+\begin{document}
+
+%Works on MiKTeX only
+%hint by http://goemonx.blogspot.de/2012/01/pdflatex-ligaturen-und-copynpaste.html
+%also http://tex.stackexchange.com/questions/4397/make-ligatures-in-linux-libertine-copyable-and-searchable
+%This allows a copy'n'paste of the text from the paper
+\input glyphtounicode.tex
+\pdfgentounicode=1
+
+\title{Title of your paper \\
+\vspace{\baselineskip}
+\small{Selected Topics of IT-Security WS16/17} \\
+Prof. Dr.-Ing. Oliver Weissmann
+}
+%If Title is too long, use \titlerunning
+%\titlerunning{Short Title}
+
+%Single institute
+\author{Your Name}
+%\author{Your Name\inst{1}}
+%If there are too many authors, use \authorrunning
+%\authorrunning{First Author et al.}
+\institute{
+University of Applied Sciences\\
+Darmstadt, Germany\\
+Email: xxxx.xxxx@stud.h-da.de
+}
+
+%Multiple institutes
+%Currently disabled
+%
+\iffalse
+%Multiple institutes are typeset as follows:
+\author{Your Name\inst{1}}% \and Firstname Lastname\inst{2} }
+%If there are too many authors, use \authorrunning
+%\authorrunning{First Author et al.}
+
+\institute{
+Institute 1\\
+\email{...}
+
+\fi
+
+\maketitle
+
+\begin{abstract}
+
+Lorem Ipsum.
+
+\end{abstract}
+
+\keywords{Your, keywords.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}\label{sec:intro}
+
+\cite{Airehrour2016198}
+
+\section{Terminology}\label{terminology}
+
+\section{Conclusion}\label{conclusion}
+
+\subsection{Future work}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\bibliographystyle{splncs03}
+%\bibliography{iotbotnetsws16}
+%\begingroup
+%\raggedright
+%\sloppy
+\printbibliography
+%\endgroup
+
+
+%All links were last followed on October 5, 2014.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
